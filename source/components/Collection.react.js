@@ -1,8 +1,8 @@
 var React = require('react');
 var ReactDOMServer = require('react-dom/server');
-var CollectionControles = require('./COllectionControls.react');
+var CollectionControles = require('./CollectionControles.react');
 var TweetList = require('./TweetList.react');
-var Header = require('./header.react');
+var Header = require('./Header.react');
 
 var Collection = React.createClass({
   createHtmlMarkupStringOfTweetList: function () {
