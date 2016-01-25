@@ -10,7 +10,7 @@ describe('Collection utilities module', function () {
   };
 
   it('returns a number of tweets in collection', function getNumberOfTweetsInCollection() {
-    var actualNumberOfTweetsIncollection = CollectionUtils.getNumberOfTweetsInCollection(collectionTweetsMock);
+    var actualNumberOfTweetsInCollection = CollectionUtils.getNumberOfTweetsInCollection(collectionTweetsMock);
     var expectedNumberOfTweetsInCollection = 3;
 
     expect(actualNumberOfTweetsInCollection).toBe(expectedNumberOfTweetsInCollection);
