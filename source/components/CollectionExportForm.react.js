@@ -19,7 +19,7 @@ var CollectionExportForm = React.createClass({
         <button
           type="submit"
           className="btn btn-default">
-          Ecport as HTML
+          Export as HTML
         </button>
       </form>
     );
