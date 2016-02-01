@@ -1,27 +1,30 @@
-var React = require('react');
-var StreamTweet = require('./StreamTweet.react');
-var Header = require('./Header.react');
-var TweetStore = require('../stores/TweetStore.js');
+import React from 'react';
+import StreamTweet from './StreamTweet.react';
+import Header from './Header.react';
+import TweetStore from '../stores/TweetStore.js';
 
-var Stream = React.createClass({
-  getInitialState: function() {
-    return {
+class Stream extends React.Component {
+  constructor() {
+    super();
+    this.state = {
       tweet: TweetStore.getTweet()
     };
-  },
-  componentDidMount: function() {
+    this.onTweetChange = () => {
+      this.setState({
+        tweet: TweetStore.getTweet()
+      });
+    };
+  }
+
+  componentDidMount() {
     TweetStore.addChangeListner(this.onTweetChange);
-  },
-  componentWillUnmount: function() {
+  }
+  componentWillUnmount() {
     TweetStore.removeChangeListner(this.inTweetChange);
-  },
-  onTweetChange: function() {
-    this.setState({
-      tweet: TweetStore.getTweet()
-    });
-  },
-  render: function () {
-    var tweet = this.state.tweet;
+  }
+
+  render() {
+    const { tweet } = this.state;
 
     if (tweet) {
       return (
@@ -32,5 +35,5 @@ var Stream = React.createClass({
       <Header text="Waiting for public photos from Twitter..." />
     );
   }
-});
-module.exports = Stream;
+}
+export default Stream;

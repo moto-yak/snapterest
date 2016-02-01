@@ -1,11 +1,11 @@
-var React = require('react');
+import React from 'react';
 
-var buttonStyle = {
+const buttonStyle = {
   margin: '10px 10px 10px 0'
 };
 
-var Button = React.createClass({
-  render: function () {
+class Button extends React.Component {
+  render() {
     return (
       <button
         className="btn btn-default"
@@ -13,5 +13,5 @@ var Button = React.createClass({
         onClick={this.props.handleClick}>{this.props.label}</button>
     );
   }
-});
-module.exports = Button;
+}
+export default Button;

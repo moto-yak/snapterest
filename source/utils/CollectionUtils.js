@@ -1,15 +1,14 @@
-function getNumberOfTweetsInCollection(collection) {
-  var TweetUtils = require('./TweetUtils');
-  var listOfCollectionTweetIds = TweetUtils.getListOfTweetIds(collection);
+import TweetUtils from './TweetUtils';
 
-  return listOfCollectionTweetIds.length;
+function getNumberOfTweetsInCollection(collection) {
+  return TweetUtils.getListOfTweetIds(collection).length;
 }
 
 function isEmptyCollection(collection) {
-  return (getNumberOfTweetsInCollection(collection) === 0);
+  return getNumberOfTweetsInCollection(collection) === 0;
 }
 
-module.exports = {
+export default {
   getNumberOfTweetsInCollection: getNumberOfTweetsInCollection,
   isEmptyCollection: isEmptyCollection
 };

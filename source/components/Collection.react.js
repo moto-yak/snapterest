@@ -1,59 +1,62 @@
-var React = require('react');
-var ReactDOMServer = require('react-dom/server');
-var CollectionControles = require('./CollectionControles.react');
-var TweetList = require('./TweetList.react');
-var Header = require('./Header.react');
-var CollectionUtils = require('../utils/CollectionUtils');
-var CollectionStore = require('../stores/CollectionStore');
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import CollectionControles from './CollectionControles.react';
+import TweetList from './TweetList.react';
+import Header from './Header.react';
+import CollectionUtils from '../utils/CollectionUtils';
+import CollectionStore from '../stores/CollectionStore';
 
-var Collection = React.createClass({
-  getInitialState: function() {
-    return {
+class Collection extends React.Component {
+  constructor() {
+    super();
+    this.state = {
       collectionTweets: CollectionStore.getCollectionTweets()
-    }
-  },
-  componentDidMount: function() {
+    };
+    this.onCollectionChange = () => {
+      this.setState({
+              collectionTweets: CollectionStore.getCollectionTweets()
+      });
+    };
+  }
+
+  componentDidMount() {
     CollectionStore.addChangeListner(this.onCollectionChange);
-  },
-  componentWillUnmount: function() {
+  }
+
+  componentWillUnmount() {
     CollectionStore.removeChangeListner(this.onCollectionChange);
-  },
-  onCollectionChange: function() {
-    this.setState({
-      collectionTweets: CollectionStore.getCollectionTweets()
-    })
-  },
-  createHtmlMarkupStringOfTweetList: function () {
-    var htmlString = ReactDOMServer.renderToStaticMarkup(
+  }
+
+  createHtmlMarkupStringOfTweetList () {
+    const htmlString = ReactDOMServer.renderToStaticMarkup(
       <TweetList tweets={this.state.collectionTweets} />
     );
-    var htmlMarkup = {
+    const htmlMarkup = {
       html: htmlString
     };
     return JSON.stringify(htmlMarkup);
-  },
-  render: function () {
-    var collectionTweets = this.state.collectionTweets;
-    var numberOfTweetsInCollection = CollectionUtils.getNumberOfTweetsInCollection(collectionTweets);
-    var htmlMarkup;
+  }
+
+  render () {
+    const collectionTweets = this.state.collectionTweets;
+    const numberOfTweetsInCollection = CollectionUtils.getNumberOfTweetsInCollection(collectionTweets);
+    let htmlMarkup;
 
     if (numberOfTweetsInCollection > 0) {
-      var htmlMarkup = this.createHtmlMarkupStringOfTweetList();
+      htmlMarkup = this.createHtmlMarkupStringOfTweetList();
+
       return (
         <div>
-
           <CollectionControles
             numberOfTweetsInCollection={numberOfTweetsInCollection}
             htmlMarkup={htmlMarkup} />
 
-          <TweetList
-            tweets={collectionTweets} />
-
+          <TweetList tweets={collectionTweets} />
         </div>
       );
     }
 
     return <Header text="Your colleciton is empty" />;
   }
-});
-module.exports = Collection;
+}
+export default Collection;

@@ -1,9 +1,12 @@
-var SnapkiteStreamClient = require('snapkite-stream-client');
-var TweetActionCreators = require('../actions/TweetActionCreators');
+import SnapkiteStreamClient from 'snapkite-stream-client';
+import TweetActionCreators from '../actions/TweetActionCreators';
 
 function initializeStreamOfTweets() {
-  SnapkiteStreamClient.initializeStream(TweetActionCreators.receiveTweet);
+  SnapkiteStreamClient.initializeStream(TweetActionCreators.receiveTweet, {
+    hostname: '192.168.100.72',
+    port: 3000
+  });
 }
-module.exports = {
-  initializeStreamOfTweets: initializeStreamOfTweets
+export default {
+  initializeStreamOfTweets
 };

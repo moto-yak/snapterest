@@ -1,11 +1,11 @@
-var AppDispatcher = require('../dispatcher/AppDispatcher');
-var EventEmitter = require('events').EventEmitter;
-var assign = require('object-assign');
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import { EventEmitter } from 'events';
+import assign from 'object-assign';
 
-var CHANGE_EVENT = 'change';
+const CHANGE_EVENT = 'change';
 
-var collectionTweets = {};
-var collectionName = 'new';
+let collectionTweets = {};
+let collectionName = 'new';
 
 function addTweetToCollection(tweet) {
   collectionTweets[tweet.id] = tweet;
@@ -23,7 +23,7 @@ function emitChange() {
   CollectionStore.emit(CHANGE_EVENT);
 }
 
-var CollectionStore = assign({}, EventEmitter.prototype, {
+const CollectionStore = assign({}, EventEmitter.prototype, {
   addChangeListner: function(callback) {
     this.on(CHANGE_EVENT, callback);
   },
@@ -64,4 +64,4 @@ function handleAction(action) {
   }
 }
 CollectionStore.dispatchToken = AppDispatcher.register(handleAction);
-module.exports = CollectionStore;
+export default CollectionStore;

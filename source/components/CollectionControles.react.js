@@ -1,27 +1,28 @@
-var React = require('react');
-var Header = require('./Header.react');
-var Button = require('./Button.react');
-var CollectionRenameForm = require('./CollectionRenameForm.react');
-var CollectionExportForm = require('./CollectionExportForm.react');
-var CollectionActionCreators = require('../actions/CollectionActionCreators');
-var CollectionStore = require('../stores/CollectionStore');
+import React from 'react';
+import Header from './Header.react';
+import Button from './Button.react';
+import CollectionRenameForm from './CollectionRenameForm.react';
+import CollectionExportForm from './CollectionExportForm.react';
+import CollectionActionCreators from '../actions/CollectionActionCreators';
+import CollectionStore from '../stores/CollectionStore';
 
-var CollectionControls = React.createClass({
+class CollectionControls extends React.Component {
 
-  getInitialState: function () {
-    return {
+  constructor() {
+    super();
+    this.state = {
       isEditingName: false
     };
-  },
-  getHeaderText: function () {
-    var numberOfTweetsInCollection = this.props.numberOfTweetsInCollection;
-    var text = numberOfTweetsInCollection;
-    var name = CollectionStore.getCollectionName();
+  }
+  getHeaderText() {
+    const { numberOfTweetsInCollection } = this.props;
+    let text = numberOfTweetsInCollection;
+    const name = CollectionStore.getCollectionName();
 
     if (numberOfTweetsInCollection === 1) {
-      text = text + ' tweet in your';
+      text += ' tweet in your';
     } else {
-      text = text + ' tweets in your';
+      text += ' tweets in your';
     }
 
     return (
@@ -29,24 +30,24 @@ var CollectionControls = React.createClass({
         {text} <strong>{name}</strong> collection
       </span>
     );
-  },
+  }
 
-  toggleEditCollectionName: function () {
+  toggleEditCollectionName() {
     this.setState({
       isEditingName: !this.state.isEditingName
     });
-  },
+  }
 
-  removeAllTweetsFromCollection: function() {
+  removeAllTweetsFromCollection() {
     CollectionActionCreators.removeAllTweetsFromCollection();
-  },
+  }
 
-  render: function () {
+  render() {
 
     if (this.state.isEditingName) {
       return (
         <CollectionRenameForm
-          onCancelCollectionNameChange={this.toggleEditCollectionName} />
+          onCancelCollectionNameChange={this.toggleEditCollectionName.bind(this)} />
       );
     }
 
@@ -56,7 +57,7 @@ var CollectionControls = React.createClass({
 
         <Button
           label='Rename collection'
-          handleClick={this.toggleEditCollectionName} />
+          handleClick={this.toggleEditCollectionName.bind(this)} />
 
         <Button
           label='Empty collection'
@@ -66,5 +67,5 @@ var CollectionControls = React.createClass({
       </div>
     );
   }
-});
-module.exports = CollectionControls;
+}
+export default CollectionControls;
