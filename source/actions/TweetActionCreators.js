@@ -1,15 +1,14 @@
-import AppDispatcher from '../dispatcher/AppDispatcher';
+var AppDispatcher = require('../dispatcher/AppDispatcher');
 
 function receiveTweet(tweet) {
-  const action = {
+  console.log('I\'ve received a new tweet and now will dispatch it together with a new action.');
+
+  var action = {
     type: 'receive_tweet',
     tweet: tweet
   };
   AppDispatcher.dispatch(action);
 }
-
-const TweetActionCreators = {
+module.exports = {
   receiveTweet: receiveTweet
 };
-
-export default TweetActionCreators;

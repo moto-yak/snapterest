@@ -1,4 +1,4 @@
 function getListOfTweetIds(tweets) {
   return Object.keys(tweets);
 }
-export default { getListOfTweetIds };
+module.exports.getListOfTweetIds = getListOfTweetIds;

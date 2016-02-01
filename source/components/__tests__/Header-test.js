@@ -2,20 +2,20 @@ jest.dontMock('../Header.react');
 
 describe('Header component', function () {
   it('renders provided header text', function () {
-    const React = require('react');
-    const ReactDOM = require('react-dom');
-    const TestUtils = require('react-addons-test-utils');
-    const Header = require('../Header.react');
+    var React = require('react');
+    var ReactDOM = require('react-dom');
+    var TestUtils = require('react-addons-test-utils');
+    var Header = require('../Header.react');
 
-    const header = TestUtils.renderIntoDocument(
+    var header = TestUtils.renderIntoDocument(
       <Header text="Testing..." />
     );
-    const actualHeaderText = ReactDOM.findDOMNode(header).textContent;    expect(actualHeaderText).toBe('Testing...');
+    var actualHeaderText = ReactDOM.findDOMNode(header).textContent;    expect(actualHeaderText).toBe('Testing...');
 
-    const defaultHeader = TestUtils.renderIntoDocument(
+    var defaultHeader = TestUtils.renderIntoDocument(
       <Header />
     );
-    const actualDefaultHeaderText = ReactDOM.findDOMNode(defaultHeader).textContent;
+    var actualDefaultHeaderText = ReactDOM.findDOMNode(defaultHeader).textContent;
 
     expect(actualDefaultHeaderText).toBe('Default header');
   });

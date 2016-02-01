@@ -1,9 +1,9 @@
-import React from 'react';
-import Stream from './Stream.react';
-import Collection from './Collection.react';
+var React = require('react');
+var Stream = require('./Stream.react');
+var Collection = require('./Collection.react');
 
-class Application extends React.Component {
-  render() {
+var Application = React.createClass({
+  render: function () {
     return (
       <div className="container-fluid">
         <div className="row">
@@ -17,5 +17,5 @@ class Application extends React.Component {
       </div>
     );
   }
-}
-export default Application;
+});
+module.exports = Application;
