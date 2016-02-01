@@ -4,6 +4,7 @@ import Collection from './Collection.react';
 
 class Application extends React.Component {
   render() {
+    console.log(this.props);
     return (
       <div className="container-fluid">
         <div className="row">

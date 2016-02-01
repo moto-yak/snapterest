@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Header from './Header.react';
 import Tweet from './Tweet.react';
-import CollectionActionCreators from '../actions/CollectionActionCreators';
 
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
@@ -16,7 +15,7 @@ class StreamTweet extends React.Component {
     };
   }
   addTweetToCollection(tweet) {
-    CollectionActionCreators.addTweetToCollection(tweet);
+    this.props.addTweetToCollection(tweet);
   }
   componentWillMount() {
     console.log('[snapterest] StreamTweet: 2. Running componentWillUnmount()');

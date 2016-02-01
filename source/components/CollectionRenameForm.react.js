@@ -1,8 +1,6 @@
 import React from 'react';
 import Header from './Header.react';
 import Button from './Button.react';
-import CollectionActionCreators from '../actions/CollectionActionCreators';
-import CollectionStore from '../stores/CollectionStore';
 
 const inputStyle = {
   marginRight: '5px'
@@ -12,7 +10,7 @@ class CollectionRenameForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      inputValue: CollectionStore.getCollectionName()
+      inputValue: this.props.name
     };
   }
   setInputValue(inputValue) {
@@ -34,7 +32,7 @@ class CollectionRenameForm extends React.Component {
   handleFormCancel(event) {
     event.preventDefault();
 
-    const collectionName = CollectionStore.getCollectionName();
+    const collectionName = this.props.name;
     this.setInputValue(collectionName);
     this.props.onCancelCollectionNameChange();
   }

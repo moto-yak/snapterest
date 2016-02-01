@@ -3,8 +3,6 @@ import Header from './Header.react';
 import Button from './Button.react';
 import CollectionRenameForm from './CollectionRenameForm.react';
 import CollectionExportForm from './CollectionExportForm.react';
-import CollectionActionCreators from '../actions/CollectionActionCreators';
-import CollectionStore from '../stores/CollectionStore';
 
 class CollectionControls extends React.Component {
 
@@ -17,7 +15,7 @@ class CollectionControls extends React.Component {
   getHeaderText() {
     const { numberOfTweetsInCollection } = this.props;
     let text = numberOfTweetsInCollection;
-    const name = CollectionStore.getCollectionName();
+    const name = this.props.name;
 
     if (numberOfTweetsInCollection === 1) {
       text += ' tweet in your';
@@ -39,7 +37,7 @@ class CollectionControls extends React.Component {
   }
 
   removeAllTweetsFromCollection() {
-    CollectionActionCreators.removeAllTweetsFromCollection();
+    this.props.removeAllTweetsFromCollection();
   }
 
   render() {

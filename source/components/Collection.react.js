@@ -4,27 +4,27 @@ import CollectionControles from './CollectionControles.react';
 import TweetList from './TweetList.react';
 import Header from './Header.react';
 import CollectionUtils from '../utils/CollectionUtils';
-import CollectionStore from '../stores/CollectionStore';
 
 class Collection extends React.Component {
   constructor() {
     super();
+    console.log(this.props);
     this.state = {
-      collectionTweets: CollectionStore.getCollectionTweets()
+      collectionTweets: this.props.tweets
     };
     this.onCollectionChange = () => {
       this.setState({
-              collectionTweets: CollectionStore.getCollectionTweets()
+        collectionTweets: this.props.tweets
       });
     };
   }
 
   componentDidMount() {
-    CollectionStore.addChangeListner(this.onCollectionChange);
+//    CollectionStore.addChangeListner(this.onCollectionChange);
   }
 
   componentWillUnmount() {
-    CollectionStore.removeChangeListner(this.onCollectionChange);
+//    CollectionStore.removeChangeListner(this.onCollectionChange);
   }
 
   createHtmlMarkupStringOfTweetList () {
