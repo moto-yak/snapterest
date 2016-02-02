@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppTop from './components/AppTop.react';
+import Application from './components/Application.react';
 import configureStore from './stores/ReduxStore';
 import { Provider } from 'react-redux';
 import WebAPIUtils from './utils/WebAPIUtils';
@@ -11,6 +11,6 @@ WebAPIUtils.initializeStreamOfTweets();
 
 ReactDOM.render(
   <Provider store={store}>
-    <AppTop />
+    <Application />
   </Provider>,
   document.getElementById('react-application'));

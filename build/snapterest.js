@@ -28367,45 +28367,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ActionTypes = require('../constants/ActionTypes');
-
-var ActionTypes = _interopRequireWildcard(_ActionTypes);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-exports.default = {
-  addTweetToCollection: function addTweetToCollection(tweet) {
-    return {
-      type: ActionTypes.ADD_TWEET_TO_COLLECTION,
-      tweet: tweet
-    };
-  },
-  removeTweetFromCollection: function removeTweetFromCollection(tweetId) {
-    return {
-      type: ActionTypes.REMOVE_TWEET_FROM_COLLECTION,
-      tweetId: tweetId
-    };
-  },
-  removeAllTweetsFromCollection: function removeAllTweetsFromCollection() {
-    return {
-      type: ActionTypes.REMOVE_ALL_TWEET_FROM_COLLECTION
-    };
-  },
-  setCollectionName: function setCollectionName(collectionName) {
-    return {
-      type: ActionTypes.SET_COLLECTION_NAME,
-      collectionName: collectionName
-    };
-  }
-};
-
-},{"../constants/ActionTypes":245}],231:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var _AppDispatcher = require('../dispatcher/AppDispatcher');
 
 var _AppDispatcher2 = _interopRequireDefault(_AppDispatcher);
@@ -28426,7 +28387,7 @@ var TweetActionCreators = {
 
 exports.default = TweetActionCreators;
 
-},{"../dispatcher/AppDispatcher":246}],232:[function(require,module,exports){
+},{"../dispatcher/AppDispatcher":244}],231:[function(require,module,exports){
 'use strict';
 
 var _react = require('react');
@@ -28437,9 +28398,9 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _AppTop = require('./components/AppTop.react');
+var _Application = require('./components/Application.react');
 
-var _AppTop2 = _interopRequireDefault(_AppTop);
+var _Application2 = _interopRequireDefault(_Application);
 
 var _ReduxStore = require('./stores/ReduxStore');
 
@@ -28460,50 +28421,20 @@ _WebAPIUtils2.default.initializeStreamOfTweets();
 _reactDom2.default.render(_react2.default.createElement(
   _reactRedux.Provider,
   { store: store },
-  _react2.default.createElement(_AppTop2.default, null)
+  _react2.default.createElement(_Application2.default, null)
 ), document.getElementById('react-application'));
 
-},{"./components/AppTop.react":233,"./stores/ReduxStore":248,"./utils/WebAPIUtils":252,"react":207,"react-dom":43,"react-redux":47}],233:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _redux = require('redux');
-
-var _reactRedux = require('react-redux');
-
-var _CollectionAction = require('../actions/CollectionAction');
-
-var _CollectionAction2 = _interopRequireDefault(_CollectionAction);
-
-var _Application = require('./Application.react');
-
-var _Application2 = _interopRequireDefault(_Application);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function mapStateToProps(state) {
-  console.log(state);
-  return {
-    tweets: state.tweets,
-    name: state.name
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return (0, _redux.bindActionCreators)(_CollectionAction2.default, dispatch);
-}
-exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_Application2.default);
-
-},{"../actions/CollectionAction":230,"./Application.react":234,"react-redux":47,"redux":214}],234:[function(require,module,exports){
+},{"./components/Application.react":232,"./stores/ReduxStore":246,"./utils/WebAPIUtils":250,"react":207,"react-dom":43,"react-redux":47}],232:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _dec, _class;
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = undefined;
 
 var _react = require('react');
 
@@ -28517,6 +28448,8 @@ var _Collection = require('./Collection.react');
 
 var _Collection2 = _interopRequireDefault(_Collection);
 
+var _reactRedux = require('react-redux');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28525,7 +28458,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Application = function (_React$Component) {
+var Application = (_dec = (0, _reactRedux.connect)(function (state) {
+  return { tweets: state.tweets };
+}), _dec(_class = function (_React$Component) {
   _inherits(Application, _React$Component);
 
   function Application() {
@@ -28537,6 +28472,7 @@ var Application = function (_React$Component) {
   _createClass(Application, [{
     key: 'render',
     value: function render() {
+      console.log('Application');
       console.log(this.props);
       return _react2.default.createElement(
         'div',
@@ -28560,11 +28496,10 @@ var Application = function (_React$Component) {
   }]);
 
   return Application;
-}(_react2.default.Component);
-
+}(_react2.default.Component)) || _class);
 exports.default = Application;
 
-},{"./Collection.react":236,"./Stream.react":241,"react":207}],235:[function(require,module,exports){
+},{"./Collection.react":234,"./Stream.react":239,"react":207,"react-redux":47}],233:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -28617,14 +28552,17 @@ var Button = function (_React$Component) {
 
 exports.default = Button;
 
-},{"react":207}],236:[function(require,module,exports){
+},{"react":207}],234:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+var _dec, _class;
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = undefined;
 
 var _react = require('react');
 
@@ -28650,6 +28588,8 @@ var _CollectionUtils = require('../utils/CollectionUtils');
 
 var _CollectionUtils2 = _interopRequireDefault(_CollectionUtils);
 
+var _reactRedux = require('react-redux');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28658,24 +28598,15 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Collection = function (_React$Component) {
+var Collection = (_dec = (0, _reactRedux.connect)(function (state) {
+  return { tweets: state.tweets };
+}), _dec(_class = function (_React$Component) {
   _inherits(Collection, _React$Component);
 
   function Collection() {
     _classCallCheck(this, Collection);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Collection).call(this));
-
-    console.log(_this.props);
-    _this.state = {
-      collectionTweets: _this.props.tweets
-    };
-    _this.onCollectionChange = function () {
-      _this.setState({
-        collectionTweets: _this.props.tweets
-      });
-    };
-    return _this;
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Collection).call(this));
   }
 
   _createClass(Collection, [{
@@ -28691,7 +28622,7 @@ var Collection = function (_React$Component) {
   }, {
     key: 'createHtmlMarkupStringOfTweetList',
     value: function createHtmlMarkupStringOfTweetList() {
-      var htmlString = _server2.default.renderToStaticMarkup(_react2.default.createElement(_TweetList2.default, { tweets: this.state.collectionTweets }));
+      var htmlString = _server2.default.renderToStaticMarkup(_react2.default.createElement(_TweetList2.default, { tweets: this.props.tweets }));
       var htmlMarkup = {
         html: htmlString
       };
@@ -28700,7 +28631,7 @@ var Collection = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      var collectionTweets = this.state.collectionTweets;
+      var collectionTweets = this.props.tweets;
       var numberOfTweetsInCollection = _CollectionUtils2.default.getNumberOfTweetsInCollection(collectionTweets);
       var htmlMarkup = undefined;
 
@@ -28722,11 +28653,10 @@ var Collection = function (_React$Component) {
   }]);
 
   return Collection;
-}(_react2.default.Component);
-
+}(_react2.default.Component)) || _class);
 exports.default = Collection;
 
-},{"../utils/CollectionUtils":250,"./CollectionControles.react":237,"./Header.react":240,"./TweetList.react":244,"react":207,"react-dom/server":44}],237:[function(require,module,exports){
+},{"../utils/CollectionUtils":248,"./CollectionControles.react":235,"./Header.react":238,"./TweetList.react":242,"react":207,"react-dom/server":44,"react-redux":47}],235:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -28845,7 +28775,7 @@ var CollectionControls = function (_React$Component) {
 
 exports.default = CollectionControls;
 
-},{"./Button.react":235,"./CollectionExportForm.react":238,"./CollectionRenameForm.react":239,"./Header.react":240,"react":207}],238:[function(require,module,exports){
+},{"./Button.react":233,"./CollectionExportForm.react":236,"./CollectionRenameForm.react":237,"./Header.react":238,"react":207}],236:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -28909,7 +28839,7 @@ var CollectionExportForm = function (_React$Component) {
 
 exports.default = CollectionExportForm;
 
-},{"react":207}],239:[function(require,module,exports){
+},{"react":207}],237:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -29020,7 +28950,7 @@ var CollectionRenameForm = function (_React$Component) {
 
 exports.default = CollectionRenameForm;
 
-},{"./Button.react":235,"./Header.react":240,"react":207}],240:[function(require,module,exports){
+},{"./Button.react":233,"./Header.react":238,"react":207}],238:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -29077,7 +29007,7 @@ Header.defaultProps = {
 
 exports.default = Header;
 
-},{"react":207}],241:[function(require,module,exports){
+},{"react":207}],239:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -29156,7 +29086,7 @@ var Stream = function (_React$Component) {
 
 exports.default = Stream;
 
-},{"../stores/TweetStore.js":249,"./Header.react":240,"./StreamTweet.react":242,"react":207}],242:[function(require,module,exports){
+},{"../stores/TweetStore.js":247,"./Header.react":238,"./StreamTweet.react":240,"react":207}],240:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -29305,7 +29235,7 @@ var StreamTweet = function (_React$Component) {
 
 exports.default = StreamTweet;
 
-},{"./Header.react":240,"./Tweet.react":243,"react":207,"react-dom":43}],243:[function(require,module,exports){
+},{"./Header.react":238,"./Tweet.react":241,"react":207,"react-dom":43}],241:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -29393,7 +29323,7 @@ Tweet.propTypes = {
 
 exports.default = Tweet;
 
-},{"react":207}],244:[function(require,module,exports){
+},{"react":207}],242:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -29483,7 +29413,7 @@ var TweetList = function (_React$Component) {
 
 exports.default = TweetList;
 
-},{"./Tweet.react.js":243,"react":207}],245:[function(require,module,exports){
+},{"./Tweet.react.js":241,"react":207}],243:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -29494,7 +29424,7 @@ var REMOVE_TWEET_FROM_COLLECTION = exports.REMOVE_TWEET_FROM_COLLECTION = 'remov
 var REMOVE_ALL_TWEET_FROM_COLLECTION = exports.REMOVE_ALL_TWEET_FROM_COLLECTION = 'remove_all_tweets_from_collection';
 var SET_COLLECTION_NAME = exports.SET_COLLECTION_NAME = 'set_collection_name';
 
-},{}],246:[function(require,module,exports){
+},{}],244:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -29505,7 +29435,7 @@ var _flux = require('flux');
 
 exports.default = new _flux.Dispatcher();
 
-},{"flux":28}],247:[function(require,module,exports){
+},{"flux":28}],245:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -29521,8 +29451,13 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
+var initialState = {
+  tweets: [],
+  name: 'new'
+};
+
 function collectionReducer() {
-  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
   var action = arguments[1];
 
   switch (action.type) {
@@ -29561,7 +29496,7 @@ function collectionReducer() {
   }
 }
 
-},{"../constants/ActionTypes":245}],248:[function(require,module,exports){
+},{"../constants/ActionTypes":243}],246:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -29589,7 +29524,7 @@ function configureStore() {
   return store;
 }
 
-},{"../reducers/CollectionReducer":247,"redux":214,"redux-logger":208}],249:[function(require,module,exports){
+},{"../reducers/CollectionReducer":245,"redux":214,"redux-logger":208}],247:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -29641,7 +29576,7 @@ function handleAction(action) {
 TweetStore.dispatchToken = _AppDispatcher2.default.register(handleAction);
 exports.default = TweetStore;
 
-},{"../dispatcher/AppDispatcher":246,"events":26,"object-assign":38}],250:[function(require,module,exports){
+},{"../dispatcher/AppDispatcher":244,"events":26,"object-assign":38}],248:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -29667,7 +29602,7 @@ exports.default = {
   isEmptyCollection: isEmptyCollection
 };
 
-},{"./TweetUtils":251}],251:[function(require,module,exports){
+},{"./TweetUtils":249}],249:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29678,7 +29613,7 @@ function getListOfTweetIds(tweets) {
 }
 exports.default = { getListOfTweetIds: getListOfTweetIds };
 
-},{}],252:[function(require,module,exports){
+},{}],250:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -29705,4 +29640,4 @@ exports.default = {
   initializeStreamOfTweets: initializeStreamOfTweets
 };
 
-},{"../actions/TweetActionCreators":231,"snapkite-stream-client":217}]},{},[232]);
+},{"../actions/TweetActionCreators":230,"snapkite-stream-client":217}]},{},[231]);

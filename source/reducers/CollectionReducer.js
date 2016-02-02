@@ -1,6 +1,11 @@
 import * as ActionTypes from '../constants/ActionTypes';
 
-export default function collectionReducer(state={}, action) {
+const initialState = {
+  tweets: [],
+  name: 'new'
+};
+
+export default function collectionReducer(state = initialState, action) {
   switch(action.type) {
     case ActionTypes.ADD_TWEET_TO_COLLECTION: {
       return {

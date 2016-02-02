@@ -4,19 +4,12 @@ import CollectionControles from './CollectionControles.react';
 import TweetList from './TweetList.react';
 import Header from './Header.react';
 import CollectionUtils from '../utils/CollectionUtils';
+import { connect } from 'react-redux';
 
-class Collection extends React.Component {
+@connect(state => ({tweets: state.tweets}))
+export default class Collection extends React.Component {
   constructor() {
     super();
-    console.log(this.props);
-    this.state = {
-      collectionTweets: this.props.tweets
-    };
-    this.onCollectionChange = () => {
-      this.setState({
-        collectionTweets: this.props.tweets
-      });
-    };
   }
 
   componentDidMount() {
@@ -29,7 +22,7 @@ class Collection extends React.Component {
 
   createHtmlMarkupStringOfTweetList () {
     const htmlString = ReactDOMServer.renderToStaticMarkup(
-      <TweetList tweets={this.state.collectionTweets} />
+      <TweetList tweets={this.props.tweets} />
     );
     const htmlMarkup = {
       html: htmlString
@@ -38,7 +31,7 @@ class Collection extends React.Component {
   }
 
   render () {
-    const collectionTweets = this.state.collectionTweets;
+    const collectionTweets = this.props.tweets;
     const numberOfTweetsInCollection = CollectionUtils.getNumberOfTweetsInCollection(collectionTweets);
     let htmlMarkup;
 
@@ -59,4 +52,3 @@ class Collection extends React.Component {
     return <Header text="Your colleciton is empty" />;
   }
 }
-export default Collection;

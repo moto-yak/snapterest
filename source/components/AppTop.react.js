@@ -4,7 +4,6 @@ import CollectionAction from '../actions/CollectionAction';
 import Application from './Application.react';
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     tweets: state.tweets,
     name: state.name

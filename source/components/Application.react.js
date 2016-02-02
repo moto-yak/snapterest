@@ -1,9 +1,12 @@
 import React from 'react';
 import Stream from './Stream.react';
 import Collection from './Collection.react';
+import { connect } from 'react-redux';
 
-class Application extends React.Component {
+@connect(state => ({tweets:state.tweets}))
+export default class Application extends React.Component {
   render() {
+    console.log('Application');
     console.log(this.props);
     return (
       <div className="container-fluid">
@@ -19,4 +22,3 @@ class Application extends React.Component {
     );
   }
 }
-export default Application;

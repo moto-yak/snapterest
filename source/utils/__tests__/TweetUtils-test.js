@@ -2,14 +2,14 @@ jest.dontMock('../TweetUtils');
 
 describe('Tweet utilities module', function() {
   it('returns an array of tweet ids', function() {
-    var TweetUtils = require('../TweetUtils');
-    var TweetsMock = {
+    const TweetUtils = require('../TweetUtils');
+    const TweetsMock = {
       tweet1: {},
       tweet2: {},
       tweet3: {}
     };
-    var expectedListOfTweetIds = ['tweet1', 'tweet2', 'tweet3'];
-    var actualListOfTweetIds = TweetUtils.getListOfTweetIds(TweetsMock);
+    const expectedListOfTweetIds = ['tweet1', 'tweet2', 'tweet3'];
+    const actualListOfTweetIds = TweetUtils.getListOfTweetIds(TweetsMock);
     expect(actualListOfTweetIds).toEqual(expectedListOfTweetIds);
   });
 });

@@ -5,7 +5,9 @@ var source = require('vinyl-source-stream');
 
 var buildTask = function () {
   return browserify('./source/app.jsx')
-  .transform('babelify', {presets: ['react', 'es2015']})
+  .transform('babelify', {
+    presets: ['react', 'es2015', 'stage-0'],
+    plugins: [["transform-decorators-legacy"]]})
   .bundle()
   .on('error', function (err) { console.log('Error : ' + err.message); })
   .pipe(source('snapterest.js'))

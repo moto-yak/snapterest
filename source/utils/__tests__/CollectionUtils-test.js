@@ -1,23 +1,23 @@
 jest.autoMockOff();
 
 describe('Collection utilities module', function () {
-  var CollectionUtils = require('../CollectionUtils');
+  const CollectionUtils = require('../CollectionUtils');
 
-  var collectionTweetsMock = {
+  const collectionTweetsMock = {
     collectionTweet7: {},
     collectionTweet8: {},
     collectionTweet9: {}
   };
 
   it('returns a number of tweets in collection', function getNumberOfTweetsInCollection() {
-    var actualNumberOfTweetsInCollection = CollectionUtils.getNumberOfTweetsInCollection(collectionTweetsMock);
-    var expectedNumberOfTweetsInCollection = 3;
+    const actualNumberOfTweetsInCollection = CollectionUtils.getNumberOfTweetsInCollection(collectionTweetsMock);
+    const expectedNumberOfTweetsInCollection = 3;
 
     expect(actualNumberOfTweetsInCollection).toBe(expectedNumberOfTweetsInCollection);
   });
 
   it('checks if collection is not empty', function isNotEmptyCollection() {
-    var actualIsEmptyCollectionValue = CollectionUtils.isEmptyCollection(collectionTweetsMock);
+    const actualIsEmptyCollectionValue = CollectionUtils.isEmptyCollection(collectionTweetsMock);
 
     expect(actualIsEmptyCollectionValue).toBeDefined();
     expect(actualIsEmptyCollectionValue).toBe(false);
