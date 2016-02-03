@@ -1,10 +1,17 @@
 import React from 'react';
 import Header from './Header.react';
 import Button from './Button.react';
+import CollectionUtils from '../utils/CollectionUtils';
 import CollectionRenameForm from './CollectionRenameForm.react';
 import CollectionExportForm from './CollectionExportForm.react';
+import { connect } from 'react-redux';
+import { removeAllTweetsFromCollection } from '../actions/CollectionActionCreators';
 
-class CollectionControls extends React.Component {
+@connect(state => ({
+  tweets: state.collection.tweets,
+  name: state.collection.name
+}))
+export default class CollectionControls extends React.Component {
 
   constructor() {
     super();
@@ -13,7 +20,7 @@ class CollectionControls extends React.Component {
     };
   }
   getHeaderText() {
-    const { numberOfTweetsInCollection } = this.props;
+    const numberOfTweetsInCollection = CollectionUtils.getNumberOfTweetsInCollection(this.props.tweets);
     let text = numberOfTweetsInCollection;
     const name = this.props.name;
 
@@ -37,7 +44,7 @@ class CollectionControls extends React.Component {
   }
 
   removeAllTweetsFromCollection() {
-    this.props.removeAllTweetsFromCollection();
+    this.props.dispatch(removeAllTweetsFromCollection());
   }
 
   render() {
@@ -45,7 +52,7 @@ class CollectionControls extends React.Component {
     if (this.state.isEditingName) {
       return (
         <CollectionRenameForm
-          onCancelCollectionNameChange={this.toggleEditCollectionName.bind(this)} />
+          onCancelCollectionNameChange={::this.toggleEditCollectionName} />
       );
     }
 
@@ -55,15 +62,14 @@ class CollectionControls extends React.Component {
 
         <Button
           label='Rename collection'
-          handleClick={this.toggleEditCollectionName.bind(this)} />
+          handleClick={::this.toggleEditCollectionName} />
 
         <Button
           label='Empty collection'
-          handleClick={this.removeAllTweetsFromCollection} />
+          handleClick={::this.removeAllTweetsFromCollection} />
 
         <CollectionExportForm htmlMarkup={this.props.htmlMarkup} />
       </div>
     );
   }
 }
-export default CollectionControls;

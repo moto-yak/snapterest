@@ -1,16 +1,19 @@
 import React from 'react';
 import Header from './Header.react';
 import Button from './Button.react';
+import { connect } from 'react-redux';
+import { setCollectionName } from '../actions/CollectionActionCreators';
 
 const inputStyle = {
   marginRight: '5px'
 };
 
-class CollectionRenameForm extends React.Component {
+@connect(state => ({name: state.collection.name}))
+export default class CollectionRenameForm extends React.Component {
   constructor() {
     super();
-    this.state = {
-      inputValue: this.props.name
+    this.state ={
+      inputValue: null
     };
   }
   setInputValue(inputValue) {
@@ -26,8 +29,7 @@ class CollectionRenameForm extends React.Component {
     event.preventDefault();
 
     const collectionName = this.state.inputValue;
-    CollectionActionCreators.setCollectionName(collectionName);
-    this.props.onCancelCollectionNameChange();
+    this.props.dispatch(setCollectionName(collectionName)); this.props.onCancelCollectionNameChange();
   }
   handleFormCancel(event) {
     event.preventDefault();
@@ -40,6 +42,7 @@ class CollectionRenameForm extends React.Component {
     this.refs.collectionName.focus();
   }
   render() {
+    let inputValue = this.state.inputValue === null  ? this.props.name : this.state.inputValue;
     return (
       <form className="form-inline" onSubmit={this.handleFormSubmit.bind(this)}>
         <Header text="Collection name:" />
@@ -48,7 +51,7 @@ class CollectionRenameForm extends React.Component {
             className="form-control"
             style={inputStyle}
             onChange={this.handleInputValueChange.bind(this)}
-            value={this.state.inputValue}
+            value={inputValue}
             ref="collectionName" />
         </div>
         <Button label="Change" handleClick={this.handleFormSubmit.bind(this)} />
@@ -57,4 +60,3 @@ class CollectionRenameForm extends React.Component {
     );
   }
 }
-export default CollectionRenameForm;

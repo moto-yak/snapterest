@@ -3,11 +3,10 @@ import Stream from './Stream.react';
 import Collection from './Collection.react';
 import { connect } from 'react-redux';
 
-@connect(state => ({tweets:state.tweets}))
+@connect(state => (state))
 export default class Application extends React.Component {
   render() {
-    console.log('Application');
-    console.log(this.props);
+    console.dir(this.props);
     return (
       <div className="container-fluid">
         <div className="row">

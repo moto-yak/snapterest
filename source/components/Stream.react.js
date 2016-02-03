@@ -1,30 +1,30 @@
 import React from 'react';
 import StreamTweet from './StreamTweet.react';
 import Header from './Header.react';
-import TweetStore from '../stores/TweetStore.js';
+import { connect } from 'react-redux';
 
-class Stream extends React.Component {
+//let unsubscribe;
+@connect(state => ({tweet: state.tweet}))
+export default class Stream extends React.Component {
   constructor() {
     super();
-    this.state = {
-      tweet: TweetStore.getTweet()
-    };
-    this.onTweetChange = () => {
-      this.setState({
-        tweet: TweetStore.getTweet()
-      });
-    };
+  }
+
+  onTweetChange() {
+    this.setState({
+      tweet: this.props.tweet
+    });
   }
 
   componentDidMount() {
-    TweetStore.addChangeListner(this.onTweetChange);
+//    unsubscribe = this.props.subscribe(this.onTweetChange);
   }
   componentWillUnmount() {
-    TweetStore.removeChangeListner(this.inTweetChange);
+//    this.props.unsubscribe(unsubscribe);
   }
 
   render() {
-    const { tweet } = this.state;
+    const { tweet } = this.props;
 
     if (tweet) {
       return (
@@ -36,4 +36,3 @@ class Stream extends React.Component {
     );
   }
 }
-export default Stream;

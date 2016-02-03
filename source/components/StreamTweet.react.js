@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Header from './Header.react';
 import Tweet from './Tweet.react';
+import { connect } from 'react-redux';
+import { addTweetToCollection } from '../actions/CollectionActionCreators';
 
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
-class StreamTweet extends React.Component {
+@connect(state => ({tweets: state.collection.tweets}))
+export default class StreamTweet extends React.Component {
   constructor() {
     super();
     console.log('[Snapterest] StreamTweet: 1. Running getInitialState()');
@@ -15,7 +18,8 @@ class StreamTweet extends React.Component {
     };
   }
   addTweetToCollection(tweet) {
-    this.props.addTweetToCollection(tweet);
+    console.log(this.props);
+    this.props.dispatch(addTweetToCollection(tweet));
   }
   componentWillMount() {
     console.log('[snapterest] StreamTweet: 2. Running componentWillUnmount()');
@@ -77,6 +81,7 @@ class StreamTweet extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     console.log('[Snapterest] StreamTweet: Running render()');
     return (
       <section>
@@ -88,4 +93,12 @@ class StreamTweet extends React.Component {
     );
   }
 }
-export default StreamTweet;
+function mapStateToProps(state) {
+  return state.collection;
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addTweetToCollection: bindActionCreator(addTweetToCollection, dispatch)
+  };
+}

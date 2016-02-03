@@ -1,6 +1,8 @@
 import React from 'react';
 import Tweet from './Tweet.react.js';
-
+import { connect } from 'react-redux';
+import { removeTweetFromCollection } from '../actions/CollectionActionCreators';
+import TweetUtils from '../utils/TweetUtils';
 const listStyle = {
   padding: '0'
 };
@@ -9,17 +11,16 @@ const listItemStyle = {
   display: 'inline-block',
   listStyle: 'none'
 };
-
-class TweetList extends React.Component {
+@connect(state => ({tweets: state.collection.tweets}))
+export default class TweetList extends React.Component {
   removeTweetFromCollection(tweet) {
-    this.props.removeTweetFromCollection(tweet.id);
-  }
-  getListOfTweetIds() {
-    return Object.keys(this.props.tweets);
+    this.props.dispatch(removeTweetFromCollection(tweet.id));
   }
   getTweetElement(tweetId) {
+    console.log('XXXXXXXXXXXXXXXXXXX' + tweetId);
     const tweet = this.props.tweets[tweetId];
-    const handleRemoveTweetFromCollection = this.removeTweetFromCollection;
+    console.log(tweet);
+    const handleRemoveTweetFromCollection = this.removeTweetFromCollection.bind(this);
     let tweetElement;
 
     if (handleRemoveTweetFromCollection) {
@@ -34,7 +35,7 @@ class TweetList extends React.Component {
     return <li style={listItemStyle} key={tweet.id}>{tweetElement}</li>;
   }
   render() {
-    const tweetElements = this.getListOfTweetIds().map(this.getTweetElement);
+    const tweetElements = TweetUtils.getListOfTweetIds(this.props.tweets).map(::this.getTweetElement);
     return (
       <ul style={listStyle}>
         {tweetElements}
@@ -42,4 +43,3 @@ class TweetList extends React.Component {
     );
   }
 }
-export default TweetList;

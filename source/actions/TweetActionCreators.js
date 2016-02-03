@@ -1,15 +1,8 @@
-import AppDispatcher from '../dispatcher/AppDispatcher';
+import * as ActionTypes from '../constants/ActionTypes';
 
-function receiveTweet(tweet) {
-  const action = {
-    type: 'receive_tweet',
+export function receiveTweet(tweet) {
+  return {
+    type: ActionTypes.RECEIVE_TWEET,
     tweet: tweet
   };
-  AppDispatcher.dispatch(action);
 }
-
-const TweetActionCreators = {
-  receiveTweet: receiveTweet
-};
-
-export default TweetActionCreators;

@@ -5,11 +5,17 @@ const initialState = {
   name: 'new'
 };
 
-export default function collectionReducer(state = initialState, action) {
+export default function collection(state = initialState, action) {
   switch(action.type) {
     case ActionTypes.ADD_TWEET_TO_COLLECTION: {
+      if (state.tweets.length > 0 &&
+        action.tweet.id === state.tweets[state.tweets.length - 1].id) {
+        return state;
+      }
+      let newTweet = Object.assign({}, action.tweet);
+        console.log(action.tweet);
       return {
-        tweets: [...state.tweets, action.tweet],
+        tweets: [...state.tweets, newTweet],
         name: state.name
       };
     }
@@ -29,6 +35,7 @@ export default function collectionReducer(state = initialState, action) {
       };
     }
     case ActionTypes.SET_COLLECTION_NAME: {
+      console.dir('####################' + action.name);
       return {
         tweets: state.tweets,
         name: action.name

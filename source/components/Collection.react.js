@@ -5,8 +5,10 @@ import TweetList from './TweetList.react';
 import Header from './Header.react';
 import CollectionUtils from '../utils/CollectionUtils';
 import { connect } from 'react-redux';
+import { getStore } from '../app.jsx';
+import { Provider } from 'react-redux';
 
-@connect(state => ({tweets: state.tweets}))
+@connect(state => ({tweets: state.collection.tweets}))
 export default class Collection extends React.Component {
   constructor() {
     super();
@@ -14,15 +16,22 @@ export default class Collection extends React.Component {
 
   componentDidMount() {
 //    CollectionStore.addChangeListner(this.onCollectionChange);
+
   }
 
   componentWillUnmount() {
 //    CollectionStore.removeChangeListner(this.onCollectionChange);
   }
-
+  onCollectionChange() {
+    this.setState({
+      collectionTweets: this.props.tweets
+    });
+  }
   createHtmlMarkupStringOfTweetList () {
     const htmlString = ReactDOMServer.renderToStaticMarkup(
-      <TweetList tweets={this.props.tweets} />
+      <Provider store={getStore()}>
+        <TweetList tweets={this.props.tweets} />
+      </Provider>
     );
     const htmlMarkup = {
       html: htmlString
@@ -35,9 +44,10 @@ export default class Collection extends React.Component {
     const numberOfTweetsInCollection = CollectionUtils.getNumberOfTweetsInCollection(collectionTweets);
     let htmlMarkup;
 
+    console.log(numberOfTweetsInCollection);
+
     if (numberOfTweetsInCollection > 0) {
       htmlMarkup = this.createHtmlMarkupStringOfTweetList();
-
       return (
         <div>
           <CollectionControles
