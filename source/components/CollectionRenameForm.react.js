@@ -16,31 +16,35 @@ export default class CollectionRenameForm extends React.Component {
       inputValue: null
     };
   }
+
   setInputValue(inputValue) {
     this.setState({
       inputValue: inputValue
     });
   }
+
   handleInputValueChange(event) {
     const inputValue = event.target.value;
     this.setInputValue(inputValue);
   }
+
   handleFormSubmit(event) {
     event.preventDefault();
-
     const collectionName = this.state.inputValue;
     this.props.dispatch(setCollectionName(collectionName)); this.props.onCancelCollectionNameChange();
   }
+
   handleFormCancel(event) {
     event.preventDefault();
-
     const collectionName = this.props.name;
     this.setInputValue(collectionName);
     this.props.onCancelCollectionNameChange();
   }
+
   componentDidMount() {
     this.refs.collectionName.focus();
   }
+
   render() {
     let inputValue = this.state.inputValue === null  ? this.props.name : this.state.inputValue;
     return (

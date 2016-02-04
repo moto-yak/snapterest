@@ -6,7 +6,11 @@ import { Provider } from 'react-redux';
 import WebAPIUtils from './utils/WebAPIUtils';
 
 const store = configureStore();
-console.log(store);
+
+export function getStore() {
+  return store;
+}
+
 WebAPIUtils.initializeStreamOfTweets(store);
 
 ReactDOM.render(
@@ -14,7 +18,3 @@ ReactDOM.render(
     <Application />
   </Provider>,
   document.getElementById('react-application'));
-
-export function getStore() {
-  return store;
-}

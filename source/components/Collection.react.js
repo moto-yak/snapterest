@@ -14,19 +14,12 @@ export default class Collection extends React.Component {
     super();
   }
 
-  componentDidMount() {
-//    CollectionStore.addChangeListner(this.onCollectionChange);
-
-  }
-
-  componentWillUnmount() {
-//    CollectionStore.removeChangeListner(this.onCollectionChange);
-  }
   onCollectionChange() {
     this.setState({
       collectionTweets: this.props.tweets
     });
   }
+
   createHtmlMarkupStringOfTweetList () {
     const htmlString = ReactDOMServer.renderToStaticMarkup(
       <Provider store={getStore()}>
@@ -43,8 +36,6 @@ export default class Collection extends React.Component {
     const collectionTweets = this.props.tweets;
     const numberOfTweetsInCollection = CollectionUtils.getNumberOfTweetsInCollection(collectionTweets);
     let htmlMarkup;
-
-    console.log(numberOfTweetsInCollection);
 
     if (numberOfTweetsInCollection > 0) {
       htmlMarkup = this.createHtmlMarkupStringOfTweetList();

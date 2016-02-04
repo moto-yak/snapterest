@@ -16,13 +16,6 @@ export default class Stream extends React.Component {
     });
   }
 
-  componentDidMount() {
-//    unsubscribe = this.props.subscribe(this.onTweetChange);
-  }
-  componentWillUnmount() {
-//    this.props.unsubscribe(unsubscribe);
-  }
-
   render() {
     const { tweet } = this.props;
 

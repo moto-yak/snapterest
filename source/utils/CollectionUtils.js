@@ -9,6 +9,6 @@ function isEmptyCollection(collection) {
 }
 
 export default {
-  getNumberOfTweetsInCollection: getNumberOfTweetsInCollection,
-  isEmptyCollection: isEmptyCollection
+  getNumberOfTweetsInCollection,
+  isEmptyCollection
 };

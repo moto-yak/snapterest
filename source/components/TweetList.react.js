@@ -11,11 +11,13 @@ const listItemStyle = {
   display: 'inline-block',
   listStyle: 'none'
 };
+
 @connect(state => ({tweets: state.collection.tweets}))
 export default class TweetList extends React.Component {
   removeTweetFromCollection(tweet) {
     this.props.dispatch(removeTweetFromCollection(tweet.id));
   }
+
   getTweetElement(tweetId) {
     const tweet = this.props.tweets[tweetId];
     const handleRemoveTweetFromCollection = ::this.removeTweetFromCollection;
@@ -32,6 +34,7 @@ export default class TweetList extends React.Component {
     }
     return <li style={listItemStyle} key={tweet.id}>{tweetElement}</li>;
   }
+
   render() {
     const tweetElements = TweetUtils.getListOfTweetIds(this.props.tweets).map(::this.getTweetElement);
     return (

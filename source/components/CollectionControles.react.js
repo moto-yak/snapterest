@@ -12,13 +12,13 @@ import { removeAllTweetsFromCollection } from '../actions/CollectionActionCreato
   name: state.collection.name
 }))
 export default class CollectionControls extends React.Component {
-
   constructor() {
     super();
     this.state = {
       isEditingName: false
     };
   }
+
   getHeaderText() {
     const numberOfTweetsInCollection = CollectionUtils.getNumberOfTweetsInCollection(this.props.tweets);
     let text = numberOfTweetsInCollection;
@@ -48,7 +48,6 @@ export default class CollectionControls extends React.Component {
   }
 
   render() {
-
     if (this.state.isEditingName) {
       return (
         <CollectionRenameForm

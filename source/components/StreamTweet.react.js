@@ -17,10 +17,12 @@ export default class StreamTweet extends React.Component {
       headerText: null
     };
   }
+
   addTweetToCollection(tweet) {
     console.log(this.props);
     this.props.dispatch(addTweetToCollection(tweet));
   }
+
   componentWillMount() {
     console.log('[snapterest] StreamTweet: 2. Running componentWillUnmount()');
     this.setState({
@@ -32,24 +34,22 @@ export default class StreamTweet extends React.Component {
       numberOfDisplayedTweets: 1
     };
   }
+
   componentDidMount() {
     console.log('[snapterest] StreamTweet: 3. Running componentDidMount()');
     const componentDOMRepresentation = ReactDOM.findDOMNode(this);
-    console.log(componentDOMRepresentation);
-    window.stapterest.headerHtml = componentDOMRepresentation.childlen[0].outerHTML;
-    window.stapterest.tweetHtml = componentDOMRepresentation.childlen[1].outerHTML;
+    if (componentDOMRepresentation.childlen !== undefined) {
+      window.stapterest.headerHtml = componentDOMRepresentation.childlen[0].outerHTML;
+      window.stapterest.tweetHtml = componentDOMRepresentation.childlen[1].outerHTML;
+    }
   }
+
   componentWillReceiveProps(nextProps) {
     console.log('[Snapterest] StreamTweet: 4. Running componentWillReceiveProps()');
-
     const currentTweetLength = this.props.tweet.text.length;
     const nextTweetLength = nextProps.tweet.text.length;
     const isNumberOfCharactersIncreasing = (nextTweetLength > currentTweetLength);
     let headerText;
-
-    this.setState({
-      numberOfCharactersIsIncreasing: isNumberOfCharactersIncreasing
-    });
 
     if (isNumberOfCharactersIncreasing) {
       headerText = 'Number of characters is increasing';
@@ -58,11 +58,13 @@ export default class StreamTweet extends React.Component {
     }
 
     this.setState({
+      numberOfCharactersIsIncreasing: isNumberOfCharactersIncreasing,
       headerText: headerText
     });
 
     window.snapterest.numberOfReceivedTweets++;
   }
+
   shouldComponentUpdate(nextProps, nextState) {
     console.log('[Snapterest] StreamTweet: 5. Running shouldComponentUpdate()');
 
@@ -88,17 +90,8 @@ export default class StreamTweet extends React.Component {
         <Header text={this.state.headerText} />
         <Tweet
           tweet={this.props.tweet}
-          onImageClick={this.addTweetToCollection.bind(this)} />
+          onImageClick={::this.addTweetToCollection} />
       </section>
     );
   }
-}
-function mapStateToProps(state) {
-  return state.collection;
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    addTweetToCollection: bindActionCreator(addTweetToCollection, dispatch)
-  };
 }

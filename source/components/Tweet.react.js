@@ -17,15 +17,15 @@ const imageStyle = {
 /* eslint-disable no-unused-vars */
 export default class Tweet extends React.Component {
   handleImageClick() {
-    const tweet = this.props.tweet;
+    const { tweet } = this.props;
     const onImageClick = this.props.onImageClick;
     if (onImageClick) {
       onImageClick(tweet);
     }
   }
+
   render() {
-    console.log('PPPPPPPPPPPP' + this.props);
-    const tweet = this.props.tweet;
+    const { tweet } = this.props;
     const tweetMediaUrl = tweet.media[0].url;
 
     return (

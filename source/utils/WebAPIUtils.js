@@ -9,6 +9,7 @@ function initializeStreamOfTweets(store) {
     port: 3000
   });
 }
+
 export default {
   initializeStreamOfTweets
 };

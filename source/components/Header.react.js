@@ -14,6 +14,7 @@ class Header extends React.Component {
     );
   }
 }
+
 Header.defaultProps = {
   text: 'Default header'
 };

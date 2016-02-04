@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 @connect(state => (state))
 export default class Application extends React.Component {
   render() {
-    console.dir(this.props);
     return (
       <div className="container-fluid">
         <div className="row">
