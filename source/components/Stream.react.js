@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 //let unsubscribe;
 @connect(state => ({tweet: state.tweet}))
 export default class Stream extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   onTweetChange() {

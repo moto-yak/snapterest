@@ -9,8 +9,8 @@ import { addTweetToCollection } from '../actions/CollectionActionCreators';
 /* eslint-disable no-unused-vars */
 @connect(state => ({tweets: state.collection.tweets}))
 export default class StreamTweet extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     console.log('[Snapterest] StreamTweet: 1. Running getInitialState()');
     this.state = {
       numberOfCharactersIsIncreasing: null,
@@ -19,7 +19,6 @@ export default class StreamTweet extends React.Component {
   }
 
   addTweetToCollection(tweet) {
-    console.log(this.props);
     this.props.dispatch(addTweetToCollection(tweet));
   }
 
@@ -83,7 +82,6 @@ export default class StreamTweet extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     console.log('[Snapterest] StreamTweet: Running render()');
     return (
       <section>

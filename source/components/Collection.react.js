@@ -10,8 +10,8 @@ import { Provider } from 'react-redux';
 
 @connect(state => ({tweets: state.collection.tweets}))
 export default class Collection extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   onCollectionChange() {

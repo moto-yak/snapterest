@@ -27891,6 +27891,11 @@ var _WebAPIUtils2 = _interopRequireDefault(_WebAPIUtils);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var store = (0, _ReduxStore2.default)();
+
+function getStore() {
+  return store;
+}
+
 _WebAPIUtils2.default.initializeStreamOfTweets(store);
 
 _reactDom2.default.render(_react2.default.createElement(
@@ -27898,10 +27903,6 @@ _reactDom2.default.render(_react2.default.createElement(
   { store: store },
   _react2.default.createElement(_Application2.default, null)
 ), document.getElementById('react-application'));
-
-function getStore() {
-  return store;
-}
 
 },{"./components/Application.react":229,"./stores/ReduxStore":244,"./utils/WebAPIUtils":247,"react":204,"react-dom":68,"react-redux":72}],229:[function(require,module,exports){
 'use strict';
@@ -28082,10 +28083,10 @@ var Collection = (_dec = (0, _reactRedux.connect)(function (state) {
 }), _dec(_class = function (_React$Component) {
   _inherits(Collection, _React$Component);
 
-  function Collection() {
+  function Collection(props) {
     _classCallCheck(this, Collection);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Collection).call(this));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Collection).call(this, props));
   }
 
   _createClass(Collection, [{
@@ -28191,10 +28192,10 @@ var CollectionControls = (_dec = (0, _reactRedux.connect)(function (state) {
 }), _dec(_class = function (_React$Component) {
   _inherits(CollectionControls, _React$Component);
 
-  function CollectionControls() {
+  function CollectionControls(props) {
     _classCallCheck(this, CollectionControls);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CollectionControls).call(this));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CollectionControls).call(this, props));
 
     _this.state = {
       isEditingName: false
@@ -28376,13 +28377,13 @@ var CollectionRenameForm = (_dec = (0, _reactRedux.connect)(function (state) {
 }), _dec(_class = function (_React$Component) {
   _inherits(CollectionRenameForm, _React$Component);
 
-  function CollectionRenameForm() {
+  function CollectionRenameForm(props) {
     _classCallCheck(this, CollectionRenameForm);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CollectionRenameForm).call(this));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(CollectionRenameForm).call(this, props));
 
     _this.state = {
-      inputValue: null
+      inputValue: props.name
     };
     return _this;
   }
@@ -28423,7 +28424,6 @@ var CollectionRenameForm = (_dec = (0, _reactRedux.connect)(function (state) {
   }, {
     key: 'render',
     value: function render() {
-      var inputValue = this.state.inputValue === null ? this.props.name : this.state.inputValue;
       return _react2.default.createElement(
         'form',
         { className: 'form-inline', onSubmit: this.handleFormSubmit.bind(this) },
@@ -28435,7 +28435,7 @@ var CollectionRenameForm = (_dec = (0, _reactRedux.connect)(function (state) {
             className: 'form-control',
             style: inputStyle,
             onChange: this.handleInputValueChange.bind(this),
-            value: inputValue,
+            value: this.state.inputValue,
             ref: 'collectionName' })
         ),
         _react2.default.createElement(_Button2.default, { label: 'Change', handleClick: this.handleFormSubmit.bind(this) }),
@@ -28545,10 +28545,10 @@ var Stream = (_dec = (0, _reactRedux.connect)(function (state) {
 }), _dec(_class = function (_React$Component) {
   _inherits(Stream, _React$Component);
 
-  function Stream() {
+  function Stream(props) {
     _classCallCheck(this, Stream);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Stream).call(this));
+    return _possibleConstructorReturn(this, Object.getPrototypeOf(Stream).call(this, props));
   }
 
   _createClass(Stream, [{
@@ -28621,10 +28621,10 @@ var StreamTweet = (_dec = (0, _reactRedux.connect)(function (state) {
 }), _dec(_class = function (_React$Component) {
   _inherits(StreamTweet, _React$Component);
 
-  function StreamTweet() {
+  function StreamTweet(props) {
     _classCallCheck(this, StreamTweet);
 
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(StreamTweet).call(this));
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(StreamTweet).call(this, props));
 
     console.log('[Snapterest] StreamTweet: 1. Running getInitialState()');
     _this.state = {
@@ -28637,7 +28637,6 @@ var StreamTweet = (_dec = (0, _reactRedux.connect)(function (state) {
   _createClass(StreamTweet, [{
     key: 'addTweetToCollection',
     value: function addTweetToCollection(tweet) {
-      console.log(this.props);
       this.props.dispatch((0, _CollectionActionCreators.addTweetToCollection)(tweet));
     }
   }, {
@@ -28712,7 +28711,6 @@ var StreamTweet = (_dec = (0, _reactRedux.connect)(function (state) {
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.props);
       console.log('[Snapterest] StreamTweet: Running render()');
       return _react2.default.createElement(
         'section',

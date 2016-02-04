@@ -10,10 +10,10 @@ const inputStyle = {
 
 @connect(state => ({name: state.collection.name}))
 export default class CollectionRenameForm extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state ={
-      inputValue: null
+      inputValue: props.name
     };
   }
 
@@ -46,7 +46,6 @@ export default class CollectionRenameForm extends React.Component {
   }
 
   render() {
-    let inputValue = this.state.inputValue === null  ? this.props.name : this.state.inputValue;
     return (
       <form className="form-inline" onSubmit={this.handleFormSubmit.bind(this)}>
         <Header text="Collection name:" />
@@ -55,7 +54,7 @@ export default class CollectionRenameForm extends React.Component {
             className="form-control"
             style={inputStyle}
             onChange={this.handleInputValueChange.bind(this)}
-            value={inputValue}
+            value={this.state.inputValue}
             ref="collectionName" />
         </div>
         <Button label="Change" handleClick={this.handleFormSubmit.bind(this)} />

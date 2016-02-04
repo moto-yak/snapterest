@@ -12,8 +12,8 @@ import { removeAllTweetsFromCollection } from '../actions/CollectionActionCreato
   name: state.collection.name
 }))
 export default class CollectionControls extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       isEditingName: false
     };
