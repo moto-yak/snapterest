@@ -24898,7 +24898,7 @@ function createLogger() {
   var _options$level = options.level;
   var level = _options$level === undefined ? "log" : _options$level;
   var _options$logger = options.logger;
-  var logger = _options$logger === undefined ? window.console : _options$logger;
+  var logger = _options$logger === undefined ? console : _options$logger;
   var _options$logErrors = options.logErrors;
   var logErrors = _options$logErrors === undefined ? true : _options$logErrors;
   var collapsed = options.collapsed;
@@ -28906,9 +28906,7 @@ var TweetList = (_dec = (0, _reactRedux.connect)(function (state) {
   }, {
     key: 'getTweetElement',
     value: function getTweetElement(tweetId) {
-      console.log('XXXXXXXXXXXXXXXXXXX' + tweetId);
       var tweet = this.props.tweets[tweetId];
-      console.log(tweet);
       var handleRemoveTweetFromCollection = this.removeTweetFromCollection.bind(this);
       var tweetElement = undefined;
 
@@ -28967,8 +28965,6 @@ var ActionTypes = _interopRequireWildcard(_ActionTypes);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 var initialState = {
   tweets: [],
   name: 'new'
@@ -28981,20 +28977,19 @@ function collection() {
   switch (action.type) {
     case ActionTypes.ADD_TWEET_TO_COLLECTION:
       {
-        if (state.tweets.length > 0 && action.tweet.id === state.tweets[state.tweets.length - 1].id) {
-          return state;
-        }
-        var newTweet = Object.assign({}, action.tweet);
-        console.log(action.tweet);
+        var newTweets = Object.assign({}, state.tweets);
+        newTweets[action.tweet.id] = action.tweet;
         return {
-          tweets: [].concat(_toConsumableArray(state.tweets), [newTweet]),
+          tweets: newTweets,
           name: state.name
         };
       }
     case ActionTypes.REMOVE_TWEET_FROM_COLLECTION:
       {
+        var newTweets = Object.assign({}, state.tweets);
+        delete newTweets[action.tweetId];
         return {
-          tweets: [].concat(_toConsumableArray(state.tweets.slice(0, action.tweetId)), _toConsumableArray(state.tweets.slice(action.tweetId + 1))),
+          tweets: newTweets,
           name: state.name
         };
       }
@@ -29007,7 +29002,6 @@ function collection() {
       }
     case ActionTypes.SET_COLLECTION_NAME:
       {
-        console.dir('####################' + action.name);
         return {
           tweets: state.tweets,
           name: action.name
@@ -29164,7 +29158,7 @@ function initializeStreamOfTweets(store) {
     return store.dispatch((0, _TweetActionCreators.receiveTweet)(tweet));
   };
   _snapkiteStreamClient2.default.initializeStream(receiveTweetCallBack, {
-    hostname: '127.0.0.1',
+    hostname: '192.168.100.72',
     port: 3000
   });
 }

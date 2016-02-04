@@ -17,10 +17,8 @@ export default class TweetList extends React.Component {
     this.props.dispatch(removeTweetFromCollection(tweet.id));
   }
   getTweetElement(tweetId) {
-    console.log('XXXXXXXXXXXXXXXXXXX' + tweetId);
     const tweet = this.props.tweets[tweetId];
-    console.log(tweet);
-    const handleRemoveTweetFromCollection = this.removeTweetFromCollection.bind(this);
+    const handleRemoveTweetFromCollection = ::this.removeTweetFromCollection;
     let tweetElement;
 
     if (handleRemoveTweetFromCollection) {

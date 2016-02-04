@@ -5,7 +5,7 @@ import { receiveTweet } from '../actions/TweetActionCreators';
 function initializeStreamOfTweets(store) {
   const receiveTweetCallBack = (tweet) => store.dispatch(receiveTweet(tweet));
   SnapkiteStreamClient.initializeStream(receiveTweetCallBack, {
-    hostname: '127.0.0.1',
+    hostname: '192.168.100.72',
     port: 3000
   });
 }

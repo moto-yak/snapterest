@@ -8,23 +8,18 @@ const initialState = {
 export default function collection(state = initialState, action) {
   switch(action.type) {
     case ActionTypes.ADD_TWEET_TO_COLLECTION: {
-      if (state.tweets.length > 0 &&
-        action.tweet.id === state.tweets[state.tweets.length - 1].id) {
-        return state;
-      }
-      let newTweet = Object.assign({}, action.tweet);
-        console.log(action.tweet);
+      let newTweets = Object.assign({}, state.tweets);
+      newTweets[action.tweet.id] = action.tweet;
       return {
-        tweets: [...state.tweets, newTweet],
+        tweets: newTweets,
         name: state.name
       };
     }
     case ActionTypes.REMOVE_TWEET_FROM_COLLECTION: {
+      let newTweets = Object.assign({}, state.tweets);
+      delete newTweets[action.tweetId];
       return {
-        tweets: [
-          ...state.tweets.slice(0, action.tweetId),
-          ...state.tweets.slice(action.tweetId + 1)
-        ],
+        tweets: newTweets,
         name: state.name
       };
     }
@@ -35,7 +30,6 @@ export default function collection(state = initialState, action) {
       };
     }
     case ActionTypes.SET_COLLECTION_NAME: {
-      console.dir('####################' + action.name);
       return {
         tweets: state.tweets,
         name: action.name
